@@ -13,12 +13,16 @@ const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <div className="sticky top-0 z-[100] bg-white shadow-lg dark:bg-[#1D232A]">
+    <div
+      className={`sticky top-0 z-[100] ${
+        theme === "dark" ? "bg-[#1D232A]" : "bg-white"
+      } shadow-lg dark:bg-[#1D232A]`}
+    >
       <nav className="navbar container mx-auto lg:pr-3">
-        <div className="flex-1 ">
+        <div className="flex-1">
           <Link
             href="/"
-            className="text-2xl font-semibold normal-case px-4 rounded-md py-2 hover:bg-[#2B3039]"
+            className="text-2xl font-semibold normal-case rounded-md"
           >
             Kichu Lagbe?
           </Link>
@@ -101,7 +105,7 @@ const Navbar = () => {
             </label>
             <ul
               tabIndex={0}
-              className="menu-compact bg-[#1D232A] border dropdown-content menu rounded-box mt-3 w-52  p-2 shadow"
+              className="menu-compact border dropdown-content menu rounded-box mt-3 w-52  p-2 shadow"
             >
               <li className="mb-2">
                 <NavLink
@@ -122,9 +126,7 @@ const Navbar = () => {
                 </NavLink>
               </li>
               <li>
-                <button className="content-center text-lg bg-[#1D232A]">
-                  Logout
-                </button>
+                <button className="content-center text-lg">Logout</button>
               </li>
             </ul>
           </div>

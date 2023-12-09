@@ -23,9 +23,7 @@ const RootLayout = ({ children }) => {
         <main>
           <Providers>
             <Navbar />
-            <div className="container mx-auto min-h-screen z-10">
-              {children}
-            </div>
+            <div className="min-h-screen">{children}</div>
             <Footer />
           </Providers>
         </main>
