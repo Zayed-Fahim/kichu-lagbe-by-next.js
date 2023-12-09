@@ -18,7 +18,7 @@ export const metadata = {
 
 const RootLayout = ({ children }) => {
   return (
-    <html lang="en" className="transition-all" data-theme="dark">
+    <html lang="en" className="transition-all" data-theme="light">
       <body className={classNames(roboto.variable, "font-roboto")}>
         <main>
           <Providers>

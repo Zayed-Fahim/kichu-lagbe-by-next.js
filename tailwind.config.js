@@ -13,6 +13,6 @@ module.exports = {
   fontFamily: {
     roboto: "var(--font-roboto)",
   },
-  darkMode: ["class", '[data-theme:"dark"]'],
+  darkMode: ["class", '[data-theme:"light"]'],
   plugins: [require("daisyui")],
 };
