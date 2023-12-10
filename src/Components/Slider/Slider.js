@@ -36,7 +36,7 @@ const Slider = () => {
           navigation
           autoplay={{
             delay: 5000,
-            disableOnInteraction: false,
+            disableOnInteraction: true,
           }}
           effect={"coverflow"}
           grabCursor={true}
@@ -54,28 +54,28 @@ const Slider = () => {
           className="mySwiper"
         >
           <SwiperSlide>
-            <Image width={1920} height={900} alt="" src={img_1} />
+            <Image width={1300} height={750} alt="" src={img_1} />
           </SwiperSlide>
           <SwiperSlide>
-            <Image width={1920} height={900} alt="" src={img_2} />
+            <Image width={1300} height={750} alt="" src={img_2} />
           </SwiperSlide>
           <SwiperSlide>
-            <Image width={1920} height={900} alt="" src={img_3} />
+            <Image width={1300} height={750} alt="" src={img_3} />
           </SwiperSlide>
           <SwiperSlide>
-            <Image width={1920} height={900} alt="" src={img_4} />
+            <Image width={1300} height={750} alt="" src={img_4} />
           </SwiperSlide>
           <SwiperSlide>
-            <Image width={1920} height={900} alt="" src={img_5} />
+            <Image width={1300} height={750} alt="" src={img_5} />
           </SwiperSlide>
           <SwiperSlide>
-            <Image width={1920} height={900} alt="" src={img_6} />
+            <Image width={1300} height={750} alt="" src={img_6} />
           </SwiperSlide>
           <SwiperSlide>
-            <Image width={1920} height={900} alt="" src={img_7} />
+            <Image width={1300} height={750} alt="" src={img_7} />
           </SwiperSlide>
           <SwiperSlide>
-            <Image width={1920} height={900} alt="" src={img_8} />
+            <Image width={1300} height={750} alt="" src={img_8} />
           </SwiperSlide>
         </Swiper>
       )}
