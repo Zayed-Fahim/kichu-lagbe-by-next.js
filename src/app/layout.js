@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/Components/Navbar/Navbar";
 import Footer from "@/Components/Footer/Footer";
 import Providers from "@/providers";
+import Toaster from "@/Components/Toaster/Toaster";
 
 const roboto = Roboto({
   weight: ["100", "300", "400", "500", "700", "900"],
@@ -22,10 +23,9 @@ const RootLayout = ({ children }) => {
       <body className={classNames(roboto.variable, "font-roboto")}>
         <main>
           <Providers>
-            <Navbar />
             <div className="min-h-screen">{children}</div>
-            <Footer />
           </Providers>
+          <Toaster position="top-right" reverseOrder={false} />
         </main>
       </body>
     </html>

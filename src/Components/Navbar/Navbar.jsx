@@ -5,12 +5,20 @@ import Link from "next/link";
 import React from "react";
 import NavLink from "../NavLink/NavLink";
 import useTheme from "@/hooks/useTheme";
+import useAuth from "@/hooks/useAuth";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
-  const user = null;
-  const navData = user ? afterLoginNavData : beforeLoginNavData;
+  const { user, logOut } = useAuth();
+  const navData = user?.uid ? afterLoginNavData : beforeLoginNavData;
 
   const { theme, toggleTheme } = useTheme();
+  const handleLogOut = async () => {
+    await logOut();
+    toast.success(
+      "Successfully Logout From Your Account! Please Come back later"
+    );
+  };
 
   return (
     <div
@@ -22,7 +30,7 @@ const Navbar = () => {
         <div className="flex-1">
           <Link
             href="/"
-            className="text-2xl font-semibold normal-case rounded-md"
+            className="text-3xl italic font-semibold normal-case rounded-md"
           >
             Kichu Lagbe?
           </Link>
@@ -69,7 +77,11 @@ const Navbar = () => {
               tabIndex={0}
               className="card dropdown-content card-compact mt-3 w-52 bg-base-100 shadow"
             >
-              <div className="card-body">
+              <div
+                className={`card-body border rounded-xl ${
+                  theme === "dark" ? "bg-[#1D232A]" : "bg-white"
+                }`}
+              >
                 <span className="text-lg font-bold">
                   {/* {cart.length} */}
                   Items
@@ -96,7 +108,11 @@ const Navbar = () => {
               <div className="w-10 rounded-full">
                 <Image
                   alt="user-logo"
-                  src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                  src={
+                    user
+                      ? user.photoURL
+                      : "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                  }
                   width={40}
                   height={40}
                   className="h-10 w-10 rounded-full"
@@ -105,7 +121,9 @@ const Navbar = () => {
             </label>
             <ul
               tabIndex={0}
-              className="menu-compact border dropdown-content menu rounded-box mt-3 w-52  p-2 shadow"
+              className={`menu-compact border dropdown-content menu rounded-box mt-3 w-52  p-2 shadow ${
+                theme === "dark" ? "bg-[#1D232A]" : "bg-white"
+              }`}
             >
               <li className="mb-2">
                 <NavLink
@@ -126,7 +144,12 @@ const Navbar = () => {
                 </NavLink>
               </li>
               <li>
-                <button className="content-center text-lg">Logout</button>
+                <button
+                  onClick={handleLogOut}
+                  className="content-center text-lg"
+                >
+                  Logout
+                </button>
               </li>
             </ul>
           </div>

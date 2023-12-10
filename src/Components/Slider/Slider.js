@@ -13,56 +13,73 @@ import img_6 from "../../assets/iStock-1412353022.2e16d0ba.fill-1440x605.jpg";
 import img_5 from "../../assets/photo-1542838132-92c53300491e.avif";
 import img_7 from "../../assets/shutterstock_434114893-cd0c4cb444d54eef8ba66c4daf2f7a10.jpg";
 import img_8 from "../../assets/unrecognizable-woman-shops-for-produce-in-royalty-free-image-871227828-1533830561.jpg";
+import { useEffect, useState } from "react";
+import "../../app/globals.css";
 
 const Slider = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2500);
+  }, []);
   return (
-    <Swiper
-      loop
-      navigation
-      autoplay={{
-        delay: 5000,
-        disableOnInteraction: false,
-      }}
-      effect={"coverflow"}
-      grabCursor={true}
-      centeredSlides={true}
-      slidesPerView={"auto"}
-      coverflowEffect={{
-        rotate: 50,
-        stretch: 0,
-        depth: 100,
-        modifier: 1,
-        slideShadows: true,
-      }}
-      pagination={true}
-      modules={[EffectCoverflow, Autoplay]}
-      className="mySwiper"
-    >
-      <SwiperSlide>
-        <Image width={1920} height={900} alt="" src={img_1} />
-      </SwiperSlide>
-      <SwiperSlide>
-        <Image width={1920} height={900} alt="" src={img_2} />
-      </SwiperSlide>
-      <SwiperSlide>
-        <Image width={1920} height={900} alt="" src={img_3} />
-      </SwiperSlide>
-      <SwiperSlide>
-        <Image width={1920} height={900} alt="" src={img_4} />
-      </SwiperSlide>
-      <SwiperSlide>
-        <Image width={1920} height={900} alt="" src={img_5} />
-      </SwiperSlide>
-      <SwiperSlide>
-        <Image width={1920} height={900} alt="" src={img_6} />
-      </SwiperSlide>
-      <SwiperSlide>
-        <Image width={1920} height={900} alt="" src={img_7} />
-      </SwiperSlide>
-      <SwiperSlide>
-        <Image width={1920} height={900} alt="" src={img_8} />
-      </SwiperSlide>
-    </Swiper>
+    <>
+      {isLoading ? (
+        <div className="w-full h-[750px] flex justify-center items-center">
+          <div class="sliderLoaderHome"></div>
+        </div>
+      ) : (
+        <Swiper
+          loop
+          navigation
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: false,
+          }}
+          effect={"coverflow"}
+          grabCursor={true}
+          centeredSlides={true}
+          slidesPerView={"auto"}
+          coverflowEffect={{
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true,
+          }}
+          pagination={true}
+          modules={[EffectCoverflow, Autoplay]}
+          className="mySwiper"
+        >
+          <SwiperSlide>
+            <Image width={1920} height={900} alt="" src={img_1} />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image width={1920} height={900} alt="" src={img_2} />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image width={1920} height={900} alt="" src={img_3} />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image width={1920} height={900} alt="" src={img_4} />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image width={1920} height={900} alt="" src={img_5} />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image width={1920} height={900} alt="" src={img_6} />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image width={1920} height={900} alt="" src={img_7} />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image width={1920} height={900} alt="" src={img_8} />
+          </SwiperSlide>
+        </Swiper>
+      )}
+    </>
   );
 };
 
