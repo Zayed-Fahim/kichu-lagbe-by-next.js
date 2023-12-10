@@ -28,7 +28,7 @@ const Slider = () => {
     <>
       {isLoading ? (
         <div className="w-full h-[750px] flex justify-center items-center">
-          <div class="sliderLoaderHome"></div>
+          <div className="sliderLoaderHome"></div>
         </div>
       ) : (
         <Swiper
