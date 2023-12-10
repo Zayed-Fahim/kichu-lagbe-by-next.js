@@ -31,7 +31,7 @@ const Slider = () => {
           <div className="sliderLoaderHome"></div>
         </div>
       ) : (
-        <div className="w-full grid place-items-center">
+        <div className="w-full grid place-items-center py-[50px]">
           <Swiper
             loop
             navigation
