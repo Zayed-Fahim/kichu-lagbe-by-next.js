@@ -42,6 +42,8 @@
 .swiper-slide img {
   display: block;
   object-fit: cover;
+  width: 1300px;
+  height: 750px;
 }
 
 .sliderLoaderHome {
