@@ -1,8 +1,7 @@
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Roboto } from "next/font/google";
 import classNames from "@/utils/classNames";
 import "./globals.css";
-import Navbar from "@/Components/Navbar/Navbar";
-import Footer from "@/Components/Footer/Footer";
 import Providers from "@/providers";
 import Toaster from "@/Components/Toaster/Toaster";
 
@@ -24,6 +23,7 @@ const RootLayout = ({ children }) => {
         <main>
           <Providers>
             <div className="min-h-screen">{children}</div>
+            <SpeedInsights />
           </Providers>
           <Toaster position="top-right" reverseOrder={false} />
         </main>
