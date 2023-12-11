@@ -28,7 +28,7 @@
 }
 
 .mySwiper {
-  @apply w-full px-0 py-[50px];
+  @apply w-full;
 }
 
 .mySwiper .swiper-slide {
