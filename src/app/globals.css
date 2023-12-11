@@ -27,15 +27,15 @@
   background: #f1f1f1;
 }
 
-.swiper {
+.mySwiper {
   @apply w-full px-0 py-[50px];
 }
 
-.swiper-slide {
+.mySwiper .swiper-slide {
   @apply bg-center w-[1300px] h-[750px];
 }
 
-.swiper-slide img {
+.mySwiper .swiper-slide img {
   @apply object-cover w-[1300px] h-[750px];
 }
 

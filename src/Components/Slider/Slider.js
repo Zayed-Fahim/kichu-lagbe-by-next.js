@@ -23,7 +23,7 @@ const Slider = () => {
     }, 2500);
   }, []);
   return (
-    <div className="w-full">
+    <div className="w-full flex justify-center">
       {isLoading ? (
         <div className="w-full h-[750px] flex justify-center items-center">
           <div className="sliderLoaderHome"></div>
