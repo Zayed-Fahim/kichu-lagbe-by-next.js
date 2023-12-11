@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+import { useEffect, useState } from "react";
 import "swiper/css/bundle";
 import { Autoplay, EffectCoverflow } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -12,8 +12,7 @@ import img_6 from "../../assets/iStock-1412353022.2e16d0ba.fill-1440x605.jpg";
 import img_5 from "../../assets/photo-1542838132-92c53300491e.avif";
 import img_7 from "../../assets/shutterstock_434114893-cd0c4cb444d54eef8ba66c4daf2f7a10.jpg";
 import img_8 from "../../assets/unrecognizable-woman-shops-for-produce-in-royalty-free-image-871227828-1533830561.jpg";
-import { useEffect, useState } from "react";
-import "../../app/globals.css";
+import Image from "next/image";
 
 const Slider = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -24,7 +23,7 @@ const Slider = () => {
     }, 2500);
   }, []);
   return (
-    <>
+    <div className="w-full">
       {isLoading ? (
         <div className="w-full h-[750px] flex justify-center items-center">
           <div className="sliderLoaderHome"></div>
@@ -51,32 +50,32 @@ const Slider = () => {
           className="mySwiper"
         >
           <SwiperSlide>
-            <Image width={1920} height={750} alt="" src={img_1} />
+            <Image alt="" src={img_1} />
           </SwiperSlide>
           <SwiperSlide>
-            <Image width={1920} height={750} alt="" src={img_2} />
+            <Image alt="" src={img_2} />
           </SwiperSlide>
           <SwiperSlide>
-            <Image width={1920} height={750} alt="" src={img_3} />
+            <Image alt="" src={img_3} />
           </SwiperSlide>
           <SwiperSlide>
-            <Image width={1920} height={750} alt="" src={img_4} />
+            <Image alt="" src={img_4} />
           </SwiperSlide>
           <SwiperSlide>
-            <Image width={1920} height={750} alt="" src={img_5} />
+            <Image alt="" src={img_5} />
           </SwiperSlide>
           <SwiperSlide>
-            <Image width={1920} height={750} alt="" src={img_6} />
+            <Image alt="" src={img_6} />
           </SwiperSlide>
           <SwiperSlide>
-            <Image width={1920} height={750} alt="" src={img_7} />
+            <Image alt="" src={img_7} />
           </SwiperSlide>
           <SwiperSlide>
-            <Image width={1920} height={750} alt="" src={img_8} />
+            <Image alt="" src={img_8} />
           </SwiperSlide>
         </Swiper>
       )}
-    </>
+    </div>
   );
 };
 
