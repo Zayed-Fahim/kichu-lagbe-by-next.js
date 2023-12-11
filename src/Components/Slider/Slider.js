@@ -31,55 +31,52 @@ const Slider = () => {
           <div className="sliderLoaderHome"></div>
         </div>
       ) : (
-        <div className="w-full grid place-items-center py-[50px]">
-          <Swiper
-            loop
-            navigation
-            autoplay={{
-              delay: 5000,
-              disableOnInteraction: false,
-            }}
-            effect={"coverflow"}
-            grabCursor={true}
-            centeredSlides={true}
-            slidesPerView={"auto"}
-            coverflowEffect={{
-              rotate: 50,
-              stretch: 0,
-              depth: 100,
-              modifier: 1,
-              slideShadows: true,
-            }}
-            pagination={true}
-            modules={[EffectCoverflow, Autoplay]}
-            className="mySwiper"
-          >
-            <SwiperSlide>
-              <Image width={1300} height={750} alt="" src={img_1} />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image width={1300} height={750} alt="" src={img_2} />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image width={1300} height={750} alt="" src={img_3} />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image width={1300} height={750} alt="" src={img_4} />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image width={1300} height={750} alt="" src={img_5} />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image width={1300} height={750} alt="" src={img_6} />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image width={1300} height={750} alt="" src={img_7} />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image width={1300} height={750} alt="" src={img_8} />
-            </SwiperSlide>
-          </Swiper>
-        </div>
+        <Swiper
+          loop
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: false,
+          }}
+          effect={"coverflow"}
+          grabCursor={true}
+          centeredSlides={true}
+          slidesPerView={"auto"}
+          coverflowEffect={{
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true,
+          }}
+          pagination={false}
+          modules={[EffectCoverflow, Autoplay]}
+          className="mySwiper"
+        >
+          <SwiperSlide>
+            <Image width={1920} height={750} alt="" src={img_1} />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image width={1920} height={750} alt="" src={img_2} />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image width={1920} height={750} alt="" src={img_3} />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image width={1920} height={750} alt="" src={img_4} />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image width={1920} height={750} alt="" src={img_5} />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image width={1920} height={750} alt="" src={img_6} />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image width={1920} height={750} alt="" src={img_7} />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image width={1920} height={750} alt="" src={img_8} />
+          </SwiperSlide>
+        </Swiper>
       )}
     </>
   );
