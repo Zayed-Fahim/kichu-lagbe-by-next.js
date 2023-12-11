@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
-import "swiper/css";
-import "swiper/css/pagination";
+import "swiper/css/bundle";
 import { Autoplay, EffectCoverflow } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "../../app/globals.css";
@@ -48,7 +47,6 @@ const Slider = () => {
             modifier: 1,
             slideShadows: true,
           }}
-          pagination={false}
           modules={[EffectCoverflow, Autoplay]}
           className="mySwiper"
         >

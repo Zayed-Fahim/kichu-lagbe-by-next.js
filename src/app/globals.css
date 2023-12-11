@@ -36,7 +36,7 @@
 }
 
 .swiper-slide img {
-  @apply w-full h-full object-cover;
+  @apply object-cover w-[1300px] h-[750px];
 }
 
 .sliderLoaderHome {
