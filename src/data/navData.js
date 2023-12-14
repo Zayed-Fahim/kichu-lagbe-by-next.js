@@ -28,7 +28,7 @@ const commonNavData = [
   export const beforeLoginNavData = [
     ...commonNavData,
     {
-      path: "/signup",
+      path: "/sign-up",
       title: "Signup",
     },
     {

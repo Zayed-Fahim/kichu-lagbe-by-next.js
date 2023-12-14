@@ -19,12 +19,18 @@ const schema = yup
 
 const LoginForm = () => {
   const { theme } = useTheme();
-  const [formData, setFormData] = useState(null);
   const [hide, setHide] = useState(true);
-  const { googleLogin, signIn } = useAuth();
+  const { googleLogin, signIn, createUser, profileUpdate } = useAuth();
   const handleGoogleLogin = async () => {
-    await googleLogin();
-    toast.success("Welcome Back.Successfully Login with Google!");
+    const toastId = toast.loading("Loading...");
+    try {
+      await googleLogin();
+      toast.dismiss(toastId);
+      toast.success("Welcome Back.Successfully Login with Google!");
+    } catch (error) {
+      toast.dismiss(toastId);
+      toast.error(error.message || "User not signed in");
+    }
   };
   const {
     register,
@@ -55,23 +61,33 @@ const LoginForm = () => {
           <p className="text-red-500 -mt-3">Error: Email is required.</p>
         )}
 
-        <input
-          {...register("password")}
-          type={hide ? "password" : "text"}
-          className={`w-full border px-6 py-3 rounded-md bg-[#1D232A] outline-none ${
-            theme === "dark" ? "bg-[#1D232A]" : "bg-white drop-shadow"
-          }`}
-          placeholder="Password"
-        />
+        <div className="relative flex">
+          <input
+            {...register("password")}
+            type={hide ? "password" : "text"}
+            className={`w-full border px-6 py-3 rounded-md bg-[#1D232A] outline-none ${
+              theme === "dark" ? "bg-[#1D232A]" : "bg-white drop-shadow"
+            }`}
+            placeholder="Password"
+          />
+          <button
+            onClick={() => handleHidePassword()}
+            className={`absolute left-[90%] top-[30%]  ${
+              (errors.email || errors.password) && "top-[55.4%]"
+            }`}
+          >
+            {hide ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+          </button>
+        </div>
         {errors.password && (
           <p className="text-red-500 -mt-3">Error: Password is required.</p>
         )}
 
         <div>
           <h1 className="text-center -mt-2 mb-4">
-            Already have an account?{" "}
+            New to Kichu Lagbe?{" "}
             <span className="text-[#32a8a0] hover:underline">
-              <Link href="/signup">Sign up</Link>
+              <Link href="/sign-up">Sign up</Link>
             </span>
           </h1>
         </div>
@@ -81,14 +97,7 @@ const LoginForm = () => {
           className="w-full border px-6 py-3 rounded-md bg-[#32a8a0] text-white text-xl uppercase font-semibold cursor-pointer drop-shadow"
         />
       </form>
-      <button
-        onClick={() => handleHidePassword()}
-        className={`absolute left-[60%] top-[51.2%] ${
-          (errors.email || errors.password) && "top-[55.4%]"
-        }`}
-      >
-        {hide ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
-      </button>
+
       <div className="divider">OR</div>
       <button
         onClick={handleGoogleLogin}
