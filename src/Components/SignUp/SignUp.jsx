@@ -1,17 +1,17 @@
 import Link from "next/link";
-import LoginForm from "./LoginForm";
+import SignUpForm from "./SignUpForm";
 
-const Login = () => {
+const SignUp = () => {
   return (
-    <div className="flex flex-col gap-72 w-full h-auto justify-center items-center">
+    <div className="flex flex-col gap-32 w-full justify-center items-center">
       <Link href="/" className="flex justify-center mt-10 ">
         <h1 className="font-bold text-xl p-5 rounded-[50%] shadow-2xl border italic">
           Kichu <br /> lagbe?
         </h1>
       </Link>
-      <LoginForm />
+      <SignUpForm />
     </div>
   );
 };
 
-export default Login;
+export default SignUp;
