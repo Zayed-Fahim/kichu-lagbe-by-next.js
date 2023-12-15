@@ -9,6 +9,7 @@ import useTheme from "@/hooks/useTheme";
 import { useState } from "react";
 import Link from "next/link";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import generateJWT from "@/utils/generateJWT";
 
 const schema = yup
   .object({
@@ -20,16 +21,17 @@ const schema = yup
 const LoginForm = () => {
   const { theme } = useTheme();
   const [hide, setHide] = useState(true);
-  const { googleLogin, signIn, createUser, profileUpdate } = useAuth();
+  const { googleLogin, signIn } = useAuth();
   const handleGoogleLogin = async () => {
     const toastId = toast.loading("Loading...");
     try {
-      await googleLogin();
+      const { user } = await googleLogin();
+      await generateJWT({ email: user.email });
       toast.dismiss(toastId);
       toast.success("Welcome Back.Successfully Login with Google!");
     } catch (error) {
       toast.dismiss(toastId);
-      toast.error(error.message || "User not signed in");
+      toast.error(error.message || "User not registered");
     }
   };
   const {
@@ -39,10 +41,23 @@ const LoginForm = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    const toastId = toast.loading("Loading...");
+    const { email, password } = data;
+    try {
+      await signIn(email, password);
+      await generateJWT({ email });
+      toast.dismiss(toastId);
+      toast.success("Welcome Back.Successfully Login with your Email!");
+    } catch (error) {
+      toast.dismiss(toastId);
+      toast.error(
+        error.message || "User not registered! Please sign up first!"
+      );
+    }
   };
-  const handleHidePassword = () => {
+  const handleHidePassword = (event) => {
+    event.preventDefault();
     setHide(!hide);
   };
 
@@ -60,7 +75,6 @@ const LoginForm = () => {
         {errors.email && (
           <p className="text-red-500 -mt-3">Error: Email is required.</p>
         )}
-
         <div className="relative flex">
           <input
             {...register("password")}
@@ -71,9 +85,9 @@ const LoginForm = () => {
             placeholder="Password"
           />
           <button
-            onClick={() => handleHidePassword()}
+            onClick={handleHidePassword}
             className={`absolute left-[90%] top-[30%]  ${
-              (errors.email || errors.password) && "top-[55.4%]"
+              (errors.email || errors.password) && "top-[30%]"
             }`}
           >
             {hide ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
@@ -82,7 +96,6 @@ const LoginForm = () => {
         {errors.password && (
           <p className="text-red-500 -mt-3">Error: Password is required.</p>
         )}
-
         <div>
           <h1 className="text-center -mt-2 mb-4">
             New to Kichu Lagbe?{" "}
@@ -91,13 +104,11 @@ const LoginForm = () => {
             </span>
           </h1>
         </div>
-
         <input
           type="submit"
           className="w-full border px-6 py-3 rounded-md bg-[#32a8a0] text-white text-xl uppercase font-semibold cursor-pointer drop-shadow"
         />
       </form>
-
       <div className="divider">OR</div>
       <button
         onClick={handleGoogleLogin}
