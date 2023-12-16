@@ -1,6 +1,7 @@
 "use client";
 import useAuth from "@/hooks/useAuth";
 import useTheme from "@/hooks/useTheme";
+import generateJWT from "@/utils/generateJWT";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
 import { useState } from "react";
@@ -30,13 +31,20 @@ const schema = yup
 
 const SignUpForm = () => {
   const { theme } = useTheme();
-  const [formData, setFormData] = useState(null);
-  const { googleLogin, signIn } = useAuth();
+  const { googleLogin, createUser, profileUpdate } = useAuth();
   const [hidePassword, setHidePassword] = useState(true);
   const [hideConfirmPassword, setHideConfirmPassword] = useState(true);
   const handleGoogleLogin = async () => {
-    await googleLogin();
-    toast.success("Welcome Back.Successfully Login with Google!");
+    const toastId = toast.loading("Loading...");
+    try {
+      const { user } = await googleLogin();
+      await generateJWT({ email: user.email });
+      toast.dismiss(toastId);
+      toast.success("Welcome Back.Successfully Sign up with Google!");
+    } catch (error) {
+      toast.dismiss(toastId);
+      toast.error(error.message || "Already signed up");
+    }
   };
   const {
     register,
@@ -46,13 +54,28 @@ const SignUpForm = () => {
     mode: "onTouched",
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    const { email, password, userName } = data;
+    const toastId = toast.loading("Loading...");
+    try {
+      await createUser(email, password);
+      await generateJWT({ email });
+      await profileUpdate({
+        displayName: userName,
+      });
+      toast.dismiss(toastId);
+      toast.success("Account creation successful");
+    } catch (error) {
+      toast.dismiss(toastId);
+      toast.error(error.message || "Attempt Unsuccessful");
+    }
   };
-  const handleHidePassword = () => {
+  const handleHidePassword = (event) => {
+    event.preventDefault();
     setHidePassword(!hidePassword);
   };
-  const handleHideConfirmPassword = () => {
+  const handleHideConfirmPassword = (event) => {
+    event.preventDefault();
     setHideConfirmPassword(!hideConfirmPassword);
   };
 
@@ -92,9 +115,9 @@ const SignUpForm = () => {
             placeholder="Password"
           />
           <button
-            onClick={() => handleHidePassword()}
+            onClick={handleHidePassword}
             className={`absolute left-[90%] top-[30%]  ${
-              (errors.email || errors.password) && "top-[35%]"
+              (errors.email || errors.password) && "top-[30%]"
             }`}
           >
             {hidePassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
@@ -113,9 +136,9 @@ const SignUpForm = () => {
             placeholder="Confirm Password"
           />
           <button
-            onClick={() => handleHideConfirmPassword()}
+            onClick={handleHideConfirmPassword}
             className={`absolute left-[90%] top-[30%]  ${
-              (errors.confirmPassword || errors.password) && "top-[35%]"
+              (errors.confirmPassword || errors.password) && "top-[30%]"
             }`}
           >
             {hideConfirmPassword ? (

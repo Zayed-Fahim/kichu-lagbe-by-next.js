@@ -2,11 +2,11 @@ import auth, { googleAuthProvider } from "@/Firebase/firebase.auth";
 import AuthContext from "@/contexts/AuthContext";
 import {
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
   signInWithEmailAndPassword,
+  onAuthStateChanged,
   signInWithPopup,
-  signOut,
   updateProfile,
+  signOut,
 } from "firebase/auth";
 import { useEffect, useState } from "react";
 
@@ -30,7 +30,7 @@ const AuthProvider = ({ children }) => {
 
   const profileUpdate = async (updateUser = {}) => {
     setLoading(true);
-    await updateProfile(auth, updateUser);
+    await updateProfile(auth.currentUser, updateUser);
     setUser((previousUser) => ({ ...previousUser, ...updateUser }));
   };
 
@@ -39,15 +39,17 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-      setLoading(false);
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+        setLoading(false);
+      }
     });
     return () => {
       unsubscribe();
     };
   }, []);
-  const value = {
+  const values = {
     user,
     loading,
     createUser,
@@ -59,7 +61,7 @@ const AuthProvider = ({ children }) => {
     googleLogin,
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;
