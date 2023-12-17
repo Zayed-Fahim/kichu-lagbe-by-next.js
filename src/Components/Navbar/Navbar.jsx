@@ -109,7 +109,7 @@ const Navbar = () => {
                 <Image
                   alt="user-logo"
                   src={
-                    user
+                    user && user.photoURL
                       ? user.photoURL
                       : "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
                   }
