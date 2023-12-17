@@ -1,26 +1,48 @@
 "use client";
 import { useEffect, useState } from "react";
-import "swiper/css/bundle";
 import { Autoplay, EffectCoverflow } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "../../app/globals.css";
-import img_4 from "../../assets/106963490-1634759952978-gettyimages-1308615771-dsc05921.jpeg";
-import img_1 from "../../assets/alt-593ecb243e2ba-3814-345dbcf80631a29c1fec1d17f919669a@1x.jpg";
-import img_2 from "../../assets/graceway-gourmet-dairy_2048x1365.jpg";
-import img_3 from "../../assets/header_photo.2e16d0ba.fill-1200x800.jpg";
-import img_6 from "../../assets/iStock-1412353022.2e16d0ba.fill-1440x605.jpg";
-import img_5 from "../../assets/photo-1542838132-92c53300491e.avif";
-import img_7 from "../../assets/shutterstock_434114893-cd0c4cb444d54eef8ba66c4daf2f7a10.jpg";
-import img_8 from "../../assets/unrecognizable-woman-shops-for-produce-in-royalty-free-image-871227828-1533830561.jpg";
 import Image from "next/image";
+import "../../app/globals.css";
+import "swiper/css/bundle";
 
 const Slider = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const imagesData = [
+    {
+      no: 1,
+      link: "https://i.ibb.co/SVGCWfg/106963490-1634759952978-gettyimages-1308615771-dsc05921.jpg",
+    },
+    {
+      no: 2,
+      link: "https://i.ibb.co/KwHYWBM/alt-593ecb243e2ba-3814-345dbcf80631a29c1fec1d17f919669a-1x.jpg",
+    },
+    {
+      no: 3,
+      link: "https://i.ibb.co/Gn7nJ0s/graceway-gourmet-dairy-2048x1365.jpg",
+    },
+    {
+      no: 4,
+      link: "https://i.ibb.co/v1W3jBb/header-photo-2e16d0ba-fill-1200x800.jpg",
+    },
+    {
+      no: 5,
+      link: "https://i.ibb.co/0V3ybX2/images.webp",
+    },
+    {
+      no: 6,
+      link: "https://i.ibb.co/0MK8QWz/shutterstock-434114893-cd0c4cb444d54eef8ba66c4daf2f7a10.jpg",
+    },
+    {
+      no: 7,
+      link: "https://i.ibb.co/LtZf951/unrecognizable-woman-shops-for-produce-in-royalty-free-image-871227828-1533830561.jpg",
+    },
+  ];
 
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 2500);
+    });
   }, []);
   return (
     <div className="w-full flex justify-center px-0 py-[50px]">
@@ -49,30 +71,19 @@ const Slider = () => {
           modules={[EffectCoverflow, Autoplay]}
           className="mySwiper"
         >
-          <SwiperSlide>
-            <Image alt="" src={img_1} />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image alt="" src={img_2} />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image alt="" src={img_3} />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image alt="" src={img_4} />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image alt="" src={img_5} />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image alt="" src={img_6} />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image alt="" src={img_7} />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image alt="" src={img_8} />
-          </SwiperSlide>
+          {imagesData.map((image) => (
+            <SwiperSlide key={image.no}>
+              {image.link && (
+                <Image
+                  width={1350}
+                  height={750}
+                  alt=""
+                  src={image?.link}
+                  layout="responsive"
+                />
+              )}
+            </SwiperSlide>
+          ))}
         </Swiper>
       )}
     </div>
