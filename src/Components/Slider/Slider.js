@@ -20,7 +20,7 @@ const Slider = () => {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 2500);
+    });
   }, []);
   return (
     <div className="w-full flex justify-center px-0 py-[50px]">
