@@ -10,6 +10,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import generateJWT from "@/utils/generateJWT";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const schema = yup
   .object({
@@ -22,13 +23,20 @@ const LoginForm = () => {
   const { theme } = useTheme();
   const [hide, setHide] = useState(true);
   const { googleLogin, signIn } = useAuth();
+
+  const { replace } = useRouter();
+  const search = useSearchParams();
+  const from = search.get("redirectUrl") || "/";
+  console.log(from);
+
   const handleGoogleLogin = async () => {
     const toastId = toast.loading("Loading...");
     try {
       const { user } = await googleLogin();
-      await generateJWT({ email: user.email });
+      await generateJWT({ email: user?.email });
       toast.dismiss(toastId);
       toast.success("Welcome Back.Successfully Login with Google!");
+      replace(from);
     } catch (error) {
       toast.dismiss(toastId);
       toast.error(error.message || "User not registered");
@@ -49,6 +57,7 @@ const LoginForm = () => {
       await generateJWT({ email });
       toast.dismiss(toastId);
       toast.success("Welcome Back.Successfully Login with your Email!");
+      replace(from);
     } catch (error) {
       toast.dismiss(toastId);
       toast.error(
@@ -64,26 +73,43 @@ const LoginForm = () => {
   return (
     <div className="flex flex-col gap-10 w-1/4">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
-        <input
-          {...register("email")}
-          type="email"
-          className={`w-full border px-6 py-3 rounded-md outline-none ${
-            theme === "dark" ? "bg-[#1D232A]" : "bg-white drop-shadow"
-          }`}
-          placeholder="Email address"
-        />
+        <div className="relative">
+          <input
+            {...register("email")}
+            id="email"
+            type="email"
+            className={`w-full border px-6 pt-8 pb-3 rounded-md outline-none 
+            peer ${theme === "dark" ? "bg-[#1D232A]" : "bg-white drop-shadow"}`}
+            placeholder=" "
+          />
+          <label
+            htmlFor="email"
+            className="absolute text-zinc-400 duration-150 transform -translate-y-3 scale-75 top-5 z-10 origin-[0] left-5 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-3"
+          >
+            Email address
+          </label>
+        </div>
         {errors.email && (
           <p className="text-red-500 -mt-3">Error: Email is required.</p>
         )}
         <div className="relative flex">
-          <input
-            {...register("password")}
-            type={hide ? "password" : "text"}
-            className={`w-full border px-6 py-3 rounded-md bg-[#1D232A] outline-none ${
-              theme === "dark" ? "bg-[#1D232A]" : "bg-white drop-shadow"
-            }`}
-            placeholder="Password"
-          />
+          <div className="relative w-full">
+            <input
+              {...register("password")}
+              type={hide ? "password" : "text"}
+              id="password"
+              className={`w-full border px-6 pt-8 pb-3 rounded-md bg-[#1D232A] outline-none peer ${
+                theme === "dark" ? "bg-[#1D232A]" : "bg-white drop-shadow"
+              }`}
+              placeholder=" "
+            />
+            <label
+              htmlFor="password"
+              className="absolute text-zinc-400 duration-150 transform -translate-y-3 scale-75 top-5 z-10 origin-[0] left-5 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-3"
+            >
+              Password
+            </label>
+          </div>
           <button
             onClick={handleHidePassword}
             className={`absolute left-[90%] top-[30%]  ${
@@ -106,13 +132,13 @@ const LoginForm = () => {
         </div>
         <input
           type="submit"
-          className="w-full border px-6 py-3 rounded-md bg-[#32a8a0] text-white text-xl uppercase font-semibold cursor-pointer drop-shadow"
+          className="w-full border px-6 py-4 rounded-md bg-[#32a8a0] text-white text-xl uppercase font-semibold cursor-pointer drop-shadow"
         />
       </form>
       <div className="divider">OR</div>
       <button
         onClick={handleGoogleLogin}
-        className="flex gap-5 items-center w-full border px-6 py-3 rounded-md drop-shadow"
+        className="flex gap-5 items-center w-full border px-6 py-4 rounded-md drop-shadow"
       >
         <FcGoogle size={26} /> <h1>Continue with Google</h1>
       </button>

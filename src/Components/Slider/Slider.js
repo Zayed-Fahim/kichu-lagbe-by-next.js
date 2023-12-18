@@ -17,26 +17,18 @@ const Slider = () => {
     },
     {
       no: 2,
-      link: "https://i.ibb.co/KwHYWBM/alt-593ecb243e2ba-3814-345dbcf80631a29c1fec1d17f919669a-1x.jpg",
-    },
-    {
-      no: 3,
       link: "https://i.ibb.co/Gn7nJ0s/graceway-gourmet-dairy-2048x1365.jpg",
     },
     {
-      no: 4,
+      no: 3,
       link: "https://i.ibb.co/v1W3jBb/header-photo-2e16d0ba-fill-1200x800.jpg",
     },
     {
-      no: 5,
-      link: "https://i.ibb.co/0V3ybX2/images.webp",
-    },
-    {
-      no: 6,
+      no: 4,
       link: "https://i.ibb.co/0MK8QWz/shutterstock-434114893-cd0c4cb444d54eef8ba66c4daf2f7a10.jpg",
     },
     {
-      no: 7,
+      no: 5,
       link: "https://i.ibb.co/LtZf951/unrecognizable-woman-shops-for-produce-in-royalty-free-image-871227828-1533830561.jpg",
     },
   ];
@@ -47,7 +39,7 @@ const Slider = () => {
     });
   }, []);
   return (
-    <div className="w-full flex justify-center px-0 py-[50px]">
+    <div className="w-full h-screen flex justify-center px-0 py-[50px]">
       {isLoading ? (
         <div className="w-full h-[750px] flex justify-center items-center">
           <div className="sliderLoaderHome"></div>
@@ -76,13 +68,7 @@ const Slider = () => {
           {imagesData.map((image) => (
             <SwiperSlide key={image.no}>
               {image.link && (
-                <Image
-                  width={1350}
-                  height={750}
-                  alt=""
-                  src={image?.link}
-                  layout="responsive"
-                />
+                <Image width={1350} height={750} alt="" src={image?.link} />
               )}
             </SwiperSlide>
           ))}

@@ -13,12 +13,6 @@ const Navbar = () => {
   const navData = user?.uid ? afterLoginNavData : beforeLoginNavData;
 
   const { theme, toggleTheme } = useTheme();
-  const handleLogOut = async () => {
-    await logOut();
-    toast.success(
-      "Successfully Logout From Your Account! Please Come back later"
-    );
-  };
 
   return (
     <div
@@ -38,9 +32,9 @@ const Navbar = () => {
         <div
           className={`absolute left-0 top-[4.5rem] flex w-full flex-col bg-slate-200 pb-3 pt-2 transition-all duration-300 dark:bg-slate-900 lg:static lg:w-[unset] lg:flex-row lg:bg-transparent lg:pb-0 lg:pt-0 dark:lg:bg-transparent`}
         >
-          <ul className="menu menu-horizontal flex-col px-1 lg:flex-row">
+          <ul className="flex flex-col lg:flex-row">
             {navData.map(({ path, title }) => (
-              <li key={path} className="mx-auto">
+              <li key={path} className="mx-auto px-5 text-[18px]">
                 <NavLink
                   href={path}
                   activeClassName="text-blue-500"
@@ -145,7 +139,12 @@ const Navbar = () => {
               </li>
               <li>
                 <button
-                  onClick={handleLogOut}
+                  onClick={async () => {
+                    await logOut();
+                    toast.success(
+                      "Successfully Logout From Your Account! Please Come back later"
+                    );
+                  }}
                   className="content-center text-lg"
                 >
                   Logout

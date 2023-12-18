@@ -3,7 +3,7 @@ import { jwtVerify } from "jose";
 
 // This function can be marked `async` if using `await` inside
 const middleware = async (request) => {
-  const { pathname } = req.nextUrl;
+  const { pathname } = request.nextUrl;
   try {
     let cookie = request.cookies.get("ACCESS_TOKEN")?.value;
     if (!cookie || !cookie.startswith("Bearer ")) {
