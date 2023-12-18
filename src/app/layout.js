@@ -2,9 +2,9 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import { Roboto } from "next/font/google";
 import classNames from "@/utils/classNames";
-import "./globals.css";
 import Providers from "@/providers";
 import Toaster from "@/Components/Toaster/Toaster";
+import "./globals.css";
 
 const roboto = Roboto({
   weight: ["100", "300", "400", "500", "700", "900"],

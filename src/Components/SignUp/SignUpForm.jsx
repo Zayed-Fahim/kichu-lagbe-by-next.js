@@ -8,7 +8,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
 import * as yup from "yup";
 
 const schema = yup
@@ -31,21 +30,9 @@ const schema = yup
 
 const SignUpForm = () => {
   const { theme } = useTheme();
-  const { googleLogin, createUser, profileUpdate } = useAuth();
+  const { createUser, profileUpdate } = useAuth();
   const [hidePassword, setHidePassword] = useState(true);
   const [hideConfirmPassword, setHideConfirmPassword] = useState(true);
-  const handleGoogleLogin = async () => {
-    const toastId = toast.loading("Loading...");
-    try {
-      const { user } = await googleLogin();
-      await generateJWT({ email: user.email });
-      toast.dismiss(toastId);
-      toast.success("Welcome Back.Successfully Sign up with Google!");
-    } catch (error) {
-      toast.dismiss(toastId);
-      toast.error(error.message || "Already signed up");
-    }
-  };
   const {
     register,
     handleSubmit,
@@ -82,38 +69,64 @@ const SignUpForm = () => {
   return (
     <div className="flex flex-col gap-10 w-1/4">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
-        <input
-          {...register("userName")}
-          type="text"
-          className={`w-full border px-6 py-3 rounded-md outline-none ${
-            theme === "dark" ? "bg-[#1D232A]" : "bg-white drop-shadow"
-          }`}
-          placeholder="Your Name"
-        />
+        <div className="relative">
+          <input
+            {...register("userName")}
+            type="text"
+            id="userName"
+            className={`w-full border px-6 pt-8 pb-3 peer rounded-md outline-none ${
+              theme === "dark" ? "bg-[#1D232A]" : "bg-white drop-shadow"
+            }`}
+            placeholder=" "
+          />
+          <label
+            htmlFor="userName"
+            className="absolute text-[18px] text-zinc-400 duration-150 transform -translate-y-3 scale-75 top-5 z-10 origin-[0] left-5 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-3"
+          >
+            Your Name
+          </label>
+        </div>
         {errors.userName && (
           <p className="text-red-500 -mt-3">Error: {errors.userName.message}</p>
         )}
-        <input
-          {...register("email")}
-          type="email"
-          className={`w-full border px-6 py-3 rounded-md outline-none ${
-            theme === "dark" ? "bg-[#1D232A]" : "bg-white drop-shadow"
-          }`}
-          placeholder="Email address"
-        />
+        <div className="relative">
+          <input
+            {...register("email")}
+            type="email"
+            id="email"
+            className={`w-full border px-6 pt-8 pb-3 peer rounded-md outline-none ${
+              theme === "dark" ? "bg-[#1D232A]" : "bg-white drop-shadow"
+            }`}
+            placeholder=" "
+          />
+          <label
+            htmlFor="email"
+            className="absolute text-[18px] text-zinc-400 duration-150 transform -translate-y-3 scale-75 top-5 z-10 origin-[0] left-5 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-3"
+          >
+            Email address
+          </label>
+        </div>
         {errors.email && (
           <p className="text-red-500 -mt-3">Error: {errors.email.message}</p>
         )}
-
         <div className="relative flex">
-          <input
-            {...register("password")}
-            type={hidePassword ? "password" : "text"}
-            className={`w-full border px-6 py-3 rounded-md bg-[#1D232A] outline-none ${
-              theme === "dark" ? "bg-[#1D232A]" : "bg-white drop-shadow"
-            }`}
-            placeholder="Password"
-          />
+          <div className="relative w-full">
+            <input
+              {...register("password")}
+              id="password"
+              type={hidePassword ? "password" : "text"}
+              className={`w-full border px-6 pt-8 pb-3 peer rounded-md bg-[#1D232A] outline-none ${
+                theme === "dark" ? "bg-[#1D232A]" : "bg-white drop-shadow"
+              }`}
+              placeholder=" "
+            />
+            <label
+              htmlFor="password"
+              className="absolute text-[18px] text-zinc-400 duration-150 transform -translate-y-3 scale-75 top-5 z-10 origin-[0] left-5 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-3"
+            >
+              Password
+            </label>
+          </div>
           <button
             onClick={handleHidePassword}
             className={`absolute left-[90%] top-[30%]  ${
@@ -127,14 +140,23 @@ const SignUpForm = () => {
           <p className="text-red-500 -mt-3">Error: {errors.password.message}</p>
         )}
         <div className="relative flex">
-          <input
-            {...register("confirmPassword")}
-            type={hideConfirmPassword ? "password" : "text"}
-            className={`w-full border px-6 py-3 rounded-md bg-[#1D232A] outline-none ${
-              theme === "dark" ? "bg-[#1D232A]" : "bg-white drop-shadow"
-            }`}
-            placeholder="Confirm Password"
-          />
+          <div className="relative w-full">
+            <input
+              {...register("confirmPassword")}
+              id="cPassword"
+              type={hideConfirmPassword ? "password" : "text"}
+              className={`w-full border px-6 pt-8 pb-3 peer rounded-md bg-[#1D232A] outline-none ${
+                theme === "dark" ? "bg-[#1D232A]" : "bg-white drop-shadow"
+              }`}
+              placeholder=""
+            />
+            <label
+              htmlFor="cPassword"
+              className="absolute text-[18px] text-zinc-400 duration-150 transform -translate-y-3 scale-75 top-5 z-10 origin-[0] left-5 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-3"
+            >
+              Confirm Password
+            </label>
+          </div>
           <button
             onClick={handleHideConfirmPassword}
             className={`absolute left-[90%] top-[30%]  ${
@@ -153,7 +175,6 @@ const SignUpForm = () => {
             Error: {errors.confirmPassword.message}
           </p>
         )}
-
         <div>
           <h1 className="text-center -mt-2 mb-4">
             Already have an account?{" "}
@@ -162,19 +183,11 @@ const SignUpForm = () => {
             </span>
           </h1>
         </div>
-
         <input
           type="submit"
-          className="w-full border px-6 py-3 rounded-md bg-[#32a8a0] text-white text-xl uppercase font-semibold cursor-pointer drop-shadow"
+          className="w-full border px-6 py-5 rounded-md bg-[#32a8a0] text-white text-xl uppercase font-semibold cursor-pointer drop-shadow"
         />
       </form>
-      <div className="divider">OR</div>
-      <button
-        onClick={handleGoogleLogin}
-        className="flex gap-5 items-center w-full border px-6 py-3 rounded-md drop-shadow"
-      >
-        <FcGoogle size={26} /> <h1>Continue with Google</h1>
-      </button>
     </div>
   );
 };
