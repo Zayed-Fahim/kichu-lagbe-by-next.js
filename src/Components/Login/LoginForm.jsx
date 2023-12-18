@@ -10,6 +10,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import generateJWT from "@/utils/generateJWT";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const schema = yup
   .object({
@@ -22,6 +23,12 @@ const LoginForm = () => {
   const { theme } = useTheme();
   const [hide, setHide] = useState(true);
   const { googleLogin, signIn } = useAuth();
+
+  const { replace } = useRouter();
+  const search = useSearchParams();
+  const from = search.get("redirectUrl") || "/";
+  console.log(from);
+
   const handleGoogleLogin = async () => {
     const toastId = toast.loading("Loading...");
     try {
@@ -29,6 +36,7 @@ const LoginForm = () => {
       await generateJWT({ email: user?.email });
       toast.dismiss(toastId);
       toast.success("Welcome Back.Successfully Login with Google!");
+      replace(from);
     } catch (error) {
       toast.dismiss(toastId);
       toast.error(error.message || "User not registered");
@@ -49,6 +57,7 @@ const LoginForm = () => {
       await generateJWT({ email });
       toast.dismiss(toastId);
       toast.success("Welcome Back.Successfully Login with your Email!");
+      replace(from);
     } catch (error) {
       toast.dismiss(toastId);
       toast.error(

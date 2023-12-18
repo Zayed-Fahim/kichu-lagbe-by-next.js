@@ -66,13 +66,7 @@ const Slider = () => {
           {imagesData.map((image) => (
             <SwiperSlide key={image.no}>
               {image.link && (
-                <Image
-                  width={1350}
-                  height={750}
-                  alt=""
-                  src={image?.link}
-                  layout="responsive"
-                />
+                <Image width={1350} height={750} alt="" src={image?.link} />
               )}
             </SwiperSlide>
           ))}

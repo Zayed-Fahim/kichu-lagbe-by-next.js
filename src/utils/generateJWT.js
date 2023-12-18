@@ -3,7 +3,7 @@ const generateJWT = async (payload) => {
     const res = await fetch("/api/v1/auth", {
       method: "POST",
       headers: {
-        "content-type": "application/json",
+        "Content-type": "application/json",
       },
       body: JSON.stringify(payload),
     });

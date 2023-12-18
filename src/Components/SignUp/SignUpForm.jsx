@@ -4,6 +4,7 @@ import useTheme from "@/hooks/useTheme";
 import generateJWT from "@/utils/generateJWT";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -33,6 +34,9 @@ const SignUpForm = () => {
   const { createUser, profileUpdate } = useAuth();
   const [hidePassword, setHidePassword] = useState(true);
   const [hideConfirmPassword, setHideConfirmPassword] = useState(true);
+  const { replace } = useRouter();
+  const search = useSearchParams();
+  const from = search?.get("redirectUrl") || "/";
   const {
     register,
     handleSubmit,
@@ -52,6 +56,7 @@ const SignUpForm = () => {
       });
       toast.dismiss(toastId);
       toast.success("Account creation successful");
+      replace(from);
     } catch (error) {
       toast.dismiss(toastId);
       toast.error(error.message || "Attempt Unsuccessful");
