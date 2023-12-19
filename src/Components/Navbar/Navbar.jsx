@@ -7,13 +7,33 @@ import NavLink from "../NavLink/NavLink";
 import useTheme from "@/hooks/useTheme";
 import useAuth from "@/hooks/useAuth";
 import toast from "react-hot-toast";
+import { usePathname, useRouter } from "next/navigation";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const navData = user?.uid ? afterLoginNavData : beforeLoginNavData;
 
   const { theme, toggleTheme } = useTheme();
+  const { replace } = useRouter();
+  const pathName = usePathname();
 
+  const handleLogout = async () => {
+    await logOut();
+    const res = await fetch("/api/v1/auth/logout", {
+      method: "POST",
+    });
+    const data = await res.json();
+    if (
+      pathName.includes("/dashboard") ||
+      pathName.includes("/profile") ||
+      pathName.includes("/settings")
+    ) {
+      replace("/");
+    }
+    toast.success(
+      "Successfully Logout From Your Account! Please Come back later"
+    );
+  };
   return (
     <div
       className={`sticky top-0 z-[100] ${
@@ -139,12 +159,7 @@ const Navbar = () => {
               </li>
               <li>
                 <button
-                  onClick={async () => {
-                    await logOut();
-                    toast.success(
-                      "Successfully Logout From Your Account! Please Come back later"
-                    );
-                  }}
+                  onClick={handleLogout}
                   className="content-center text-lg"
                 >
                   Logout
