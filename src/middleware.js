@@ -28,11 +28,6 @@ const middleware = async (request) => {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: [
-    "/profile/:path*",
-    "/dashboard/:path*",
-    "/login/:path*",
-    "/sign-up/:path*",
-  ],
+  matcher: ["/profile/:path*", "/dashboard/:path*"],
 };
 export default middleware;
