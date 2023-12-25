@@ -6,6 +6,8 @@ import Image from "next/image";
 import "../../app/globals.css";
 import "swiper/css/bundle";
 
+// image issue solved
+
 const Slider = () => {
   const [isLoading, setIsLoading] = useState(true);
   const imagesData = [
