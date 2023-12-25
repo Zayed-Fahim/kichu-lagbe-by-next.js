@@ -1,3 +1,4 @@
+import "server-only";
 import Categories from "@/models/Categories";
 
 export const createCategoryService = async (data) => {
@@ -5,9 +6,16 @@ export const createCategoryService = async (data) => {
     const category = await Categories.create({
       categoryId: data.categoryId,
       categoryName: data.categoryName,
-      subCategories: data.subCategories,
     });
     return category;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+export const getCategoryService = async () => {
+  try {
+    const categories = await Categories.find({});
+    return categories;
   } catch (error) {
     console.log(error.message);
   }
